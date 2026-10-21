@@ -1,0 +1,43 @@
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Селекціонування імен</title>
+</head>
+<body>
+    <h2>Селекціонування імен</h2>
+
+    <script>
+        let names = ["Andrii", "Olena", "Ivan", "Anna", "Dmytro", "Emma"];
+
+        console.log("Спосіб 1: перевірка першої літери імені.");
+        console.log("Якщо перша літера голосна (a, e, i, o, u) — Goodbye, інакше — Hello.");
+
+        for (let i = 0; i < names.length; i++) {
+            let firstLetter = names[i][0].toLowerCase();
+
+            if ("aeiou".includes(firstLetter)) {
+                console.log("Goodbye " + names[i]);
+            } else {
+                console.log("Hello " + names[i]);
+            }
+        }
+
+        console.log("--------------------------------");
+
+        console.log("Спосіб 2: перевірка останньої літери імені.");
+        console.log("Якщо ім'я закінчується на a або e — Goodbye, інакше — Hello.");
+
+        for (let i = 0; i < names.length; i++) {
+            let lastLetter = names[i][names[i].length - 1].toLowerCase();
+
+            if ("ae".includes(lastLetter)) {
+                console.log("Goodbye " + names[i]);
+            } else {
+                console.log("Hello " + names[i]);
+            }
+        }
+    </script>
+</body>
+</html>

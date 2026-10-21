@@ -1,0 +1,49 @@
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Завдання 5</title>
+</head>
+<body>
+    <h2>Завдання 5. Методи console</h2>
+
+    <script>
+        console.info("Це інформаційне повідомлення");
+
+        console.warn("Це попередження");
+
+        console.error("Це повідомлення про помилку");
+
+        let student = {
+            name: "Андрій",
+            age: 18,
+            group: "ІПЗ"
+        };
+
+        console.dir(student);
+
+        console.dirxml(document.body);
+
+        console.time("Цикл");
+
+        for (let i = 0; i < 1000000; i++) {
+            let x = i * 2;
+        }
+
+        console.timeEnd("Цикл");
+
+        console.profile("Мій профіль");
+
+        for (let i = 0; i < 1000; i++) {
+            let x = i * 2;
+        }
+
+        console.profileEnd("Мій профіль");
+
+        console.assert(5 > 2, "Перша перевірка не пройдена");
+
+        console.assert(2 > 5, "Друга перевірка не пройдена");
+    </script>
+</body>
+</html>

@@ -1,0 +1,125 @@
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лабораторна робота 2</title>
+</head>
+<body>
+
+    <h2>Завдання 1. Годинник і календар</h2>
+
+    <p id="clock"></p>
+
+    <script>
+        function showDateTime() {
+            let now = new Date();
+
+            let year = now.getFullYear();
+            let month = String(now.getMonth() + 1).padStart(2, "0");
+            let day = String(now.getDate()).padStart(2, "0");
+            let hour = String(now.getHours()).padStart(2, "0");
+            let min = String(now.getMinutes()).padStart(2, "0");
+            let sec = String(now.getSeconds()).padStart(2, "0");
+
+            document.getElementById("clock").textContent =
+                year + ":" + month + ":" + day + ":" +
+                hour + ":" + min + ":" + sec;
+        }
+
+        showDateTime();
+        setInterval(showDateTime, 1000);
+    </script>
+
+    <h2>Завдання 2. Калькулятор</h2>
+
+    <input type="text" id="display" readonly>
+
+    <br><br>
+
+    <button onclick="clearDisplay()">C</button>
+    <button onclick="addSymbol('/')">/</button>
+    <button onclick="addSymbol('*')">*</button>
+    <button onclick="deleteLast()">DEL</button>
+
+    <br><br>
+
+    <button onclick="addSymbol('7')">7</button>
+    <button onclick="addSymbol('8')">8</button>
+    <button onclick="addSymbol('9')">9</button>
+    <button onclick="addSymbol('-')">-</button>
+
+    <br><br>
+
+    <button onclick="addSymbol('4')">4</button>
+    <button onclick="addSymbol('5')">5</button>
+    <button onclick="addSymbol('6')">6</button>
+    <button onclick="addSymbol('+')">+</button>
+
+    <br><br>
+
+    <button onclick="addSymbol('1')">1</button>
+    <button onclick="addSymbol('2')">2</button>
+    <button onclick="addSymbol('3')">3</button>
+    <button onclick="calculate()">=</button>
+
+    <br><br>
+
+    <button onclick="addSymbol('0')">0</button>
+    <button onclick="addSymbol('.')">.</button>
+    <button onclick="addSymbol('(')">(</button>
+    <button onclick="addSymbol(')')">)</button>
+
+    <script>
+        function addSymbol(symbol) {
+            let display = document.getElementById("display");
+
+            if (display.value === "Помилка") {
+                display.value = "";
+            }
+
+            display.value += symbol;
+        }
+
+        function clearDisplay() {
+            document.getElementById("display").value = "";
+        }
+
+        function deleteLast() {
+            let display = document.getElementById("display");
+
+            if (display.value === "Помилка") {
+                display.value = "";
+            } else {
+                display.value = display.value.slice(0, -1);
+            }
+        }
+
+        function calculate() {
+            let display = document.getElementById("display");
+            let expression = display.value;
+
+            if (expression.trim() === "" ||
+                !/^[0-9+\-*/().\s]+$/.test(expression)) {
+                display.value = "Помилка";
+                return;
+            }
+
+            try {
+                let result = eval(expression);
+
+                if (typeof result !== "number" ||
+                    !Number.isFinite(result)) {
+                    display.value = "Помилка";
+                } else {
+                    display.value = result;
+                }
+            } catch (error) {
+                display.value = "Помилка";
+            }
+        }
+    </script>
+
+</body>
+</html>

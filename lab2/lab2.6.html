@@ -1,0 +1,25 @@
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Завдання з масивом імен</title>
+</head>
+<body>
+    <h2>Привітання за іменами</h2>
+
+    <script>
+        let names = ["Andrii", "Olena", "Ivan", "Anna", "Dmytro", "Emma"];
+
+        for (let i = 0; i < names.length; i++) {
+            let firstLetter = names[i][0].toLowerCase();
+
+            if ("aeiou".includes(firstLetter)) {
+                console.log("Goodbye " + names[i]);
+            } else {
+                console.log("Hello " + names[i]);
+            }
+        }
+    </script>
+</body>
+</html>

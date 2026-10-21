@@ -1,0 +1,96 @@
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Завдання 3 другої лабораторної роботи</title>
+
+    <script>
+        let str, stb, matrix = [];
+
+        function fun() {
+            str = Number(document.getElementById("str").value);
+            stb = Number(document.getElementById("stb").value);
+            matrix = [];
+
+            if (str < 1 || stb < 1 ||
+                !Number.isInteger(str) || !Number.isInteger(stb)) {
+                alert("Введіть додатну кількість рядків і стовпців!");
+                return;
+            }
+
+            for (let i = 1; i <= str; i++) {
+                matrix[i] = [];
+
+                for (let j = 1; j <= stb; j++) {
+                    matrix[i][j] = 3 * i - 2 * j;
+                }
+            }
+
+            let table = "<table border='1'>";
+
+            for (let i = 1; i <= str; i++) {
+                table += "<tr>";
+
+                for (let j = 1; j <= stb; j++) {
+                    table += "<td>" + matrix[i][j] + "</td>";
+                }
+
+                table += "</tr>";
+            }
+
+            table += "</table>";
+
+            document.getElementById("result").innerHTML = table;
+            document.getElementById("sum").value = "";
+        }
+
+        function sumColumn() {
+            if (matrix.length === 0 || stb < 3) {
+                alert("Спочатку створіть матрицю щонайменше з трьома стовпцями!");
+                return;
+            }
+
+            let sum = 0;
+
+            for (let i = 1; i <= str; i++) {
+                sum += matrix[i][3];
+            }
+
+            document.getElementById("sum").value = sum;
+        }
+    </script>
+</head>
+
+<body>
+    <h2>Створення двовимірного масиву</h2>
+
+    <form onsubmit="return false;">
+        <label for="str">Введіть кількість рядків:</label>
+        <input type="number" id="str" min="1" step="1" required>
+
+        <br><br>
+
+        <label for="stb">Введіть кількість стовпців:</label>
+        <input type="number" id="stb" min="1" step="1" required>
+
+        <br><br>
+
+        <button type="button" onclick="fun()">Вивести матрицю</button>
+
+        <br><br>
+
+        <div id="result"></div>
+
+        <br>
+
+        <button type="button" onclick="sumColumn()">Обчислити суму</button>
+
+        <br><br>
+
+        <label for="sum">Сума елементів третього стовпця:</label>
+        <input type="number" id="sum" readonly>
+    </form>
+</body>
+</html>
