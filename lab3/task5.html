@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Дерево ієрархії</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .category {
+            cursor: pointer;
+            color: blue;
+            text-decoration: underline;
+        }
+
+        li {
+            margin: 8px 0;
+        }
+    </style>
+</head>
+<body>
+    <h2>Дерево ієрархії</h2>
+
+    <ul>
+        <li>
+            <span class="category">fruits</span>
+            <ul>
+                <li>apple</li>
+                <li>pineapple</li>
+                <li>appricot</li>
+                <li>pear</li>
+                <li>lemon</li>
+            </ul>
+        </li>
+
+        <li>
+            <span class="category">vegetables</span>
+            <ul>
+                <li>potatoes</li>
+                <li>beetroot</li>
+                <li>carrots</li>
+                <li>pear</li>
+            </ul>
+        </li>
+    </ul>
+
+    <script>
+        const categories = document.querySelectorAll(".category");
+
+        categories.forEach(function(category) {
+            category.addEventListener("click", function() {
+                const list = category.nextElementSibling;
+
+                if (list.style.display === "none") {
+                    list.style.display = "block";
+                } else {
+                    list.style.display = "none";
+                }
+            });
+        });
+    </script>
+    <br>
+    <a href="lab3.html">Лабораторна робота 3</a>
+</body>
+</html>

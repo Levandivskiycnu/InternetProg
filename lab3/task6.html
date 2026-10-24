@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Завдання 6 — Варіант 8</title>
+</head>
+<body>
+    <h2>Завдання 6.1</h2>
+    <div id="description"></div>
+
+    <h2>Завдання 6.2</h2>
+    <a id="site-url" href="http://example.com">
+        Перейти на сайт
+    </a>
+
+    <h2>Завдання 6.3</h2>
+    <h3 id="warning">Увага!</h3>
+
+    <script>
+        const description = document.getElementById("description");
+        description.innerHTML = "<b>Увага!</b> Опис оновлено.";
+
+        const site = document.getElementById("site-url");
+        let url = site.getAttribute("href");
+
+        if (url.includes("http://")) {
+            url = url.replace("http://", "https://");
+            site.setAttribute("href", url);
+        }
+
+        const warning = document.getElementById("warning");
+        warning.style.color = "orange";
+
+        setTimeout(function() {
+            warning.style.color = "green";
+        }, 3500);
+    </script>
+    <br>
+    <a href="lab3.html">Лабораторна робота 3</a>
+</body>
+</html>

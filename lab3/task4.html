@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Галерея зображень</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        img {
+            width: 500px;
+            height: 350px;
+            object-fit: contain;
+            display: block;
+            margin: 20px auto;
+        }
+
+        button {
+            padding: 10px 25px;
+            margin: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h2>Перегляд зображень</h2>
+
+    <img id="photo" src="photo/photo1.jpg" alt="Зображення галереї">
+
+    <button id="back">Назад</button>
+    <button id="forward">Вперед</button>
+
+    <script>
+        const json = '["photo/photo1.jpg", "photo/photo2.jpg", "photo/photo3.jpg", "photo/photo4.jpg"]';
+        const images = JSON.parse(json);
+
+        const photo = document.getElementById("photo");
+        const back = document.getElementById("back");
+        const forward = document.getElementById("forward");
+
+        let index = 0;
+
+        function showImage() {
+            photo.src = images[index];
+        }
+
+        forward.addEventListener("click", function() {
+            index = (index + 1) % images.length;
+            showImage();
+        });
+
+        back.addEventListener("click", function() {
+            index = (index - 1 + images.length) % images.length;
+            showImage();
+        });
+
+        showImage();
+</script>
+<br>
+<a href="lab3.html">Лабораторна робота 3</a>
+</body>
+</html>

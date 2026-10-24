@@ -1,0 +1,139 @@
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Простий калькулятор</title>
+    <style>
+        #display {
+            width: 215px;
+            height: 35px;
+            font-size: 24px;
+            margin-bottom: 10px;
+            text-align: right;
+        }
+
+        button {
+            width: 50px;
+            height: 45px;
+            margin: 2px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Простий калькулятор</h2>
+
+    <input type="text" id="display" value="0" readonly>
+    <br>
+
+    <div id="buttons">
+        <button data-action="sign">+/-</button>
+        <button data-action="clear">C</button>
+        <button data-action="operator" data-value="/">/</button>
+        <button data-action="operator" data-value="*">*</button>
+        <br>
+
+        <button data-number="7">7</button>
+        <button data-number="8">8</button>
+        <button data-number="9">9</button>
+        <button data-action="operator" data-value="-">-</button>
+        <br>
+
+        <button data-number="4">4</button>
+        <button data-number="5">5</button>
+        <button data-number="6">6</button>
+        <button data-action="operator" data-value="+">+</button>
+        <br>
+
+        <button data-number="1">1</button>
+        <button data-number="2">2</button>
+        <button data-number="3">3</button>
+        <button data-action="equals">=</button>
+        <br>
+
+        <button data-number="0">0</button>
+        <button data-action="decimal">.</button>
+    </div>
+
+    <script>
+        const display = document.getElementById("display");
+        const buttons = document.getElementById("buttons");
+
+        let first = null;
+        let operator = null;
+        let newNumber = true;
+
+        buttons.addEventListener("click", function(e) {
+            const btn = e.target;
+
+            if (btn.tagName !== "BUTTON") return;
+
+            if (btn.dataset.number !== undefined) {
+                if (newNumber || display.value === "0") {
+                    display.value = btn.dataset.number;
+                    newNumber = false;
+                } else {
+                    display.value += btn.dataset.number;
+                }
+            }
+
+            if (btn.dataset.action === "decimal") {
+                if (newNumber) {
+                    display.value = "0.";
+                    newNumber = false;
+                } else if (!display.value.includes(".")) {
+                    display.value += ".";
+                }
+            }
+
+            if (btn.dataset.action === "sign") {
+                if (display.value !== "0") {
+                    display.value = String(-Number(display.value));
+                }
+            }
+
+            if (btn.dataset.action === "clear") {
+                display.value = "0";
+                first = null;
+                operator = null;
+                newNumber = true;
+            }
+
+            if (btn.dataset.action === "operator") {
+                first = Number(display.value);
+                operator = btn.dataset.value;
+                newNumber = true;
+            }
+
+            if (btn.dataset.action === "equals" && operator !== null) {
+                const second = Number(display.value);
+                let result;
+
+                if (operator === "+") result = first + second;
+                if (operator === "-") result = first - second;
+                if (operator === "*") result = first * second;
+
+                if (operator === "/") {
+                    if (second === 0) {
+                        display.value = "Помилка";
+                        first = null;
+                        operator = null;
+                        newNumber = true;
+                        return;
+                    }
+
+                    result = first / second;
+                }
+
+                display.value = String(result);
+                first = null;
+                operator = null;
+                newNumber = true;
+            }
+        });
+    </script>
+    <br>
+    <a href="lab3.html">Лабораторна робота 3</a>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Площа опуклого чотирикутника</title>
+</head>
+<body>
+    <h2>Розрахунок площі опуклого чотирикутника</h2>
+
+    <label for="diagonal">Діагональ:</label>
+    <input type="number" id="diagonal" min="0" step="any">
+    <br><br>
+
+    <label for="height1">Висота 1:</label>
+    <input type="number" id="height1" min="0" step="any">
+    <br><br>
+
+    <label for="height2">Висота 2:</label>
+    <input type="number" id="height2" min="0" step="any">
+    <br><br>
+
+    <p>Площа: <span id="area">0</span></p>
+
+    <script>
+        const diagonal = document.getElementById("diagonal");
+        const height1 = document.getElementById("height1");
+        const height2 = document.getElementById("height2");
+        const area = document.getElementById("area");
+
+        function calculateArea() {
+            const d = Number(diagonal.value);
+            const h1 = Number(height1.value);
+            const h2 = Number(height2.value);
+
+            if (
+                diagonal.value === "" ||
+                height1.value === "" ||
+                height2.value === "" ||
+                d < 0 || h1 < 0 || h2 < 0
+            ) {
+                area.textContent = "0";
+                return;
+            }
+
+            const s = d * (h1 + h2) / 2;
+            area.textContent = s.toFixed(2);
+        }
+
+        diagonal.addEventListener("input", calculateArea);
+        height1.addEventListener("input", calculateArea);
+        height2.addEventListener("input", calculateArea);
+</script>
+<br>
+<a href="lab3.html">Лабораторна робота 3</a>
+</body>
+</html>

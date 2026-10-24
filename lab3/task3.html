@@ -1,0 +1,195 @@
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Інженерний калькулятор</title>
+    <style>
+        #display {
+            width: 220px;
+            height: 35px;
+            font-size: 24px;
+            text-align: right;
+            margin-bottom: 10px;
+        }
+
+        button {
+            width: 50px;
+            height: 45px;
+            margin: 2px;
+            font-size: 17px;
+        }
+
+        #toggle {
+            width: auto;
+            padding: 0 10px;
+        }
+
+        #engineering {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h2>Інженерний калькулятор</h2>
+
+    <input type="text" id="display" value="0" readonly>
+    <br>
+
+    <div id="basic">
+        <button data-action="sign">+/-</button>
+        <button data-action="clear">C</button>
+        <button data-op="/">/</button>
+        <button data-op="*">*</button>
+        <br>
+
+        <button data-number="7">7</button>
+        <button data-number="8">8</button>
+        <button data-number="9">9</button>
+        <button data-op="-">-</button>
+        <br>
+
+        <button data-number="4">4</button>
+        <button data-number="5">5</button>
+        <button data-number="6">6</button>
+        <button data-op="+">+</button>
+        <br>
+
+        <button data-number="1">1</button>
+        <button data-number="2">2</button>
+        <button data-number="3">3</button>
+        <button data-action="equals">=</button>
+        <br>
+
+        <button data-number="0">0</button>
+        <button data-action="decimal">.</button>
+    </div>
+
+    <div id="engineering">
+        <button data-fn="sqrt">√x</button>
+        <button data-fn="square">x²</button>
+        <button data-fn="sin">sin</button>
+        <button data-fn="cos">cos</button>
+        <button data-fn="log">log</button>
+    </div>
+
+    <p>
+        <button id="toggle">Переключити на Інженерний</button>
+    </p>
+
+    <script>
+        const display = document.getElementById("display");
+        const basic = document.getElementById("basic");
+        const engineering = document.getElementById("engineering");
+        const toggle = document.getElementById("toggle");
+
+        let first = null;
+        let operator = null;
+        let newNumber = true;
+
+        toggle.addEventListener("click", function() {
+            const isHidden = engineering.style.display === "none"
+                || engineering.style.display === "";
+
+            engineering.style.display = isHidden ? "block" : "none";
+
+            toggle.textContent = isHidden
+                ? "Переключити на Простий"
+                : "Переключити на Інженерний";
+        });
+
+        basic.addEventListener("click", function(e) {
+            const btn = e.target;
+
+            if (btn.tagName !== "BUTTON") return;
+
+            if (btn.dataset.number !== undefined) {
+                if (newNumber || display.value === "0") {
+                    display.value = btn.dataset.number;
+                    newNumber = false;
+                } else {
+                    display.value += btn.dataset.number;
+                }
+            }
+
+            if (btn.dataset.action === "decimal") {
+                if (newNumber) {
+                    display.value = "0.";
+                    newNumber = false;
+                } else if (!display.value.includes(".")) {
+                    display.value += ".";
+                }
+            }
+
+            if (btn.dataset.action === "sign") {
+                if (display.value !== "0") {
+                    display.value = String(-Number(display.value));
+                }
+            }
+
+            if (btn.dataset.action === "clear") {
+                display.value = "0";
+                first = null;
+                operator = null;
+                newNumber = true;
+            }
+
+            if (btn.dataset.op) {
+                first = Number(display.value);
+                operator = btn.dataset.op;
+                newNumber = true;
+            }
+
+            if (btn.dataset.action === "equals" && operator !== null) {
+                const second = Number(display.value);
+                let result;
+
+                if (operator === "+") result = first + second;
+                if (operator === "-") result = first - second;
+                if (operator === "*") result = first * second;
+
+                if (operator === "/") {
+                    if (second === 0) {
+                        display.value = "Помилка";
+                        first = null;
+                        operator = null;
+                        newNumber = true;
+                        return;
+                    }
+
+                    result = first / second;
+                }
+
+                display.value = String(result);
+                first = null;
+                operator = null;
+                newNumber = true;
+            }
+        });
+
+        engineering.addEventListener("click", function(e) {
+            const fn = e.target.dataset.fn;
+            if (!fn) return;
+
+            const x = Number(display.value);
+            let result;
+
+            if (fn === "sqrt") result = Math.sqrt(x);
+            if (fn === "square") result = x * x;
+            if (fn === "sin") result = Math.sin(x * Math.PI / 180);
+            if (fn === "cos") result = Math.cos(x * Math.PI / 180);
+            if (fn === "log") result = Math.log10(x);
+
+            if (!Number.isFinite(result)) {
+                display.value = "Помилка";
+            } else {
+                display.value = String(Number(result.toFixed(8)));
+            }
+
+            newNumber = true;
+        });
+</script>
+<br>
+<a href="lab3.html">Лабораторна робота 3</a>
+</body>
+</html>
