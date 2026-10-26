@@ -1,0 +1,296 @@
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Завдання 3 — Вкладки</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f1f3f5;
+            margin: 0;
+            padding: 30px 15px;
+        }
+
+        .container {
+            max-width: 750px;
+            margin: auto;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 5px;
+            border-bottom: 2px solid #2463eb;
+        }
+
+        .tab {
+            padding: 12px 20px;
+            border: none;
+            background: #d5d9e0;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 6px 6px 0 0;
+        }
+
+        .tab.active {
+            background: white;
+            font-weight: bold;
+        }
+
+        .tab-content {
+            display: none;
+            background: white;
+            padding: 25px;
+            border-radius: 0 0 8px 8px;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .question {
+            margin-bottom: 20px;
+        }
+
+        .question label {
+            display: block;
+            margin: 8px 0;
+        }
+
+        button.submit {
+            padding: 12px 18px;
+            background: #2463eb;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        #results {
+            margin-top: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background: #e8edf5;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <h1>Навчальний тест</h1>
+
+    <div class="tabs">
+        <button class="tab active" data-tab="testing">Тестування</button>
+        <button class="tab" data-tab="theory">Теоретичні відомості</button>
+    </div>
+
+    <section id="testing" class="tab-content active">
+        <h2>Тестування з вебтехнологій</h2>
+
+        <form id="testForm">
+
+            <div class="question">
+                <h3>1. Що описує HTML?</h3>
+                <label><input type="radio" name="q1" value="1"> Структуру сторінки</label>
+                <label><input type="radio" name="q1" value="2"> Стилі сторінки</label>
+                <label><input type="radio" name="q1" value="3"> Лише анімації</label>
+            </div>
+
+            <div class="question">
+                <h3>2. Для чого використовують CSS?</h3>
+                <label><input type="radio" name="q2" value="1"> Для баз даних</label>
+                <label><input type="radio" name="q2" value="2"> Для оформлення сторінки</label>
+                <label><input type="radio" name="q2" value="3"> Для створення серверів</label>
+            </div>
+
+            <div class="question">
+                <h3>3. Які з цих елементів є HTML-тегами?</h3>
+                <label><input type="checkbox" name="q3" value="p"> p</label>
+                <label><input type="checkbox" name="q3" value="div"> div</label>
+                <label><input type="checkbox" name="q3" value="h1"> h1</label>
+                <label><input type="checkbox" name="q3" value="color"> color</label>
+            </div>
+
+            <div class="question">
+                <h3>4. Які властивості належать CSS?</h3>
+                <label><input type="checkbox" name="q4" value="color"> color</label>
+                <label><input type="checkbox" name="q4" value="margin"> margin</label>
+                <label><input type="checkbox" name="q4" value="padding"> padding</label>
+                <label><input type="checkbox" name="q4" value="console"> console</label>
+            </div>
+
+            <div class="question">
+                <h3>5. Який метод шукає елемент за ID?</h3>
+                <select name="q5">
+                    <option value="">Виберіть відповідь</option>
+                    <option value="1">getElementsByClassName()</option>
+                    <option value="2">getElementById()</option>
+                    <option value="3">queryAll()</option>
+                </select>
+            </div>
+
+            <div class="question">
+                <h3>6. Які методи можуть вибирати DOM-елементи?</h3>
+                <select name="q6" multiple size="4">
+                    <option value="querySelector">querySelector()</option>
+                    <option value="getElementById">getElementById()</option>
+                    <option value="querySelectorAll">querySelectorAll()</option>
+                    <option value="makeElement">makeElement()</option>
+                </select>
+                <p>Для вибору кількох пунктів утримуйте Ctrl.</p>
+            </div>
+
+            <div class="question">
+                <h3>7. Яка мова додає інтерактивність вебсторінці?</h3>
+                <input type="text" name="q7" placeholder="Введіть відповідь">
+            </div>
+
+            <button type="submit" class="submit">Завершити тестування</button>
+        </form>
+
+        <div id="results"></div>
+    </section>
+
+    <section id="theory" class="tab-content">
+        <h2>Теоретичні відомості</h2>
+
+        <h3>HTML</h3>
+        <p>HTML — мова розмітки, яка визначає структуру вебсторінки. За допомогою тегів створюють заголовки, абзаци, посилання, форми та інші елементи.</p>
+
+        <h3>CSS</h3>
+        <p>CSS використовується для оформлення сторінки: кольорів, шрифтів, відступів, розташування елементів та адаптивного дизайну.</p>
+
+        <h3>JavaScript</h3>
+        <p>JavaScript додає інтерактивність. Він може реагувати на натискання кнопок, перевіряти відповіді тесту та змінювати вміст сторінки.</p>
+
+        <h3>DOM</h3>
+        <p>DOM — об'єктна модель документа, яка дозволяє JavaScript знаходити, читати та змінювати HTML-елементи.</p>
+
+        <h3>Елементи форм</h3>
+        <p>Radio дозволяє вибрати один варіант, checkbox — кілька варіантів, select — вибрати відповідь зі списку, а text — ввести текст.</p>
+    </section>
+
+</div>
+<a href = "lab4.html">Лаб 4</a>
+
+<script>
+    const tabs = document.querySelectorAll(".tab");
+    const contents = document.querySelectorAll(".tab-content");
+
+    tabs.forEach(function(tab) {
+        tab.addEventListener("click", function() {
+            tabs.forEach(function(item) {
+                item.classList.remove("active");
+            });
+
+            contents.forEach(function(content) {
+                content.classList.remove("active");
+            });
+
+            tab.classList.add("active");
+
+            document.getElementById(tab.dataset.tab)
+                .classList.add("active");
+        });
+    });
+
+    const form = document.getElementById("testForm");
+    const results = document.getElementById("results");
+
+    const correctAnswers = {
+        q1: ["1"],
+        q2: ["2"],
+        q3: ["p", "div", "h1"],
+        q4: ["color", "margin", "padding"],
+        q5: ["2"],
+        q6: ["querySelector", "getElementById", "querySelectorAll"],
+        q7: ["javascript"]
+    };
+
+    form.addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        let total = 0;
+        let html = `
+            <h2>Результати</h2>
+            <table>
+                <tr>
+                    <th>Запитання</th>
+                    <th>Відповідь</th>
+                    <th>Бал</th>
+                </tr>
+        `;
+
+        for (let i = 1; i <= 7; i++) {
+            const name = "q" + i;
+            const elements = form.querySelectorAll(`[name="${name}"]`);
+            let answers = [];
+
+            if (elements[0].type === "radio" ||
+                elements[0].type === "checkbox") {
+                answers = Array.from(elements)
+                    .filter(element => element.checked)
+                    .map(element => element.value);
+            } else if (elements[0].tagName === "SELECT" &&
+                       elements[0].multiple) {
+                answers = Array.from(elements[0].selectedOptions)
+                    .map(option => option.value);
+            } else {
+                answers = [elements[0].value.trim().toLowerCase()];
+            }
+
+            const correct = correctAnswers[name];
+            const normalized = answers.filter(Boolean);
+
+            let score;
+
+            if (name === "q1" || name === "q2" || name === "q5") {
+                score = normalized.length === 1 &&
+                        normalized[0] === correct[0] ? 1 : 0;
+            } else if (name === "q7") {
+                score = normalized[0] === correct[0] ? 1 : 0;
+            } else {
+                const right = normalized.filter(answer =>
+                    correct.includes(answer)).length;
+
+                const wrong = normalized.filter(answer =>
+                    !correct.includes(answer)).length;
+
+                score = Math.max(0, right - wrong);
+            }
+
+            total += score;
+
+            html += `
+                <tr>
+                    <td>${i}</td>
+                    <td>${normalized.join(", ") || "Без відповіді"}</td>
+                    <td>${score}</td>
+                </tr>
+            `;
+        }
+
+        html += "</table>";
+        html += `<h3>Загальний бал: ${total}</h3>`;
+
+        results.innerHTML = html;
+    });
+</script>
+
+</body>
+</html>

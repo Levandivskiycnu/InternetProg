@@ -1,0 +1,146 @@
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Завдання 2 — Анімоване меню</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .navigation {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 30px;
+            background: #222;
+        }
+
+        .logo {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .menu {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .menu a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .menu a:hover {
+            color: #70a5ff;
+        }
+
+        .burger {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        @media (max-width: 600px) {
+            .navigation {
+                position: relative;
+            }
+
+            .burger {
+                display: block;
+            }
+
+            .menu {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #222;
+                flex-direction: column;
+                gap: 0;
+                max-height: 0;
+                overflow: hidden;
+                opacity: 0;
+                transition: max-height 0.4s ease, opacity 0.3s ease;
+            }
+
+            .menu li {
+                padding: 15px 30px;
+            }
+
+            .menu.active {
+                max-height: 350px;
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navigation">
+        <a href="#home" class="logo">MySite</a>
+
+        <button class="burger" id="burger"
+            aria-label="Відкрити меню"
+            aria-expanded="false">
+            ☰
+        </button>
+
+        <ul class="menu" id="menu">
+            <li><a href="#home">Головна</a></li>
+            <li><a href="#about">Про нас</a></li>
+            <li><a href="#services">Послуги</a></li>
+            <li><a href="#portfolio">Портфоліо</a></li>
+            <li><a href="#contacts">Контакти</a></li>
+        </ul>
+    </nav>
+
+    <div class="content" id="home">
+        <h1>Завдання 2. Анімоване меню</h1>
+        <p>Приклад адаптивного меню навігації з бургер-кнопкою.</p>
+    </div>
+
+    <a href = "lab4.html">Лаб 4</a>
+
+    <script>
+        const burger = document.getElementById("burger");
+        const menu = document.getElementById("menu");
+
+        burger.addEventListener("click", function() {
+            menu.classList.toggle("active");
+
+            const isOpen = menu.classList.contains("active");
+
+            burger.setAttribute("aria-expanded", isOpen);
+            burger.setAttribute(
+                "aria-label",
+                isOpen ? "Закрити меню" : "Відкрити меню"
+            );
+
+            burger.textContent = isOpen ? "✕" : "☰";
+        });
+    </script>
+
+</body>
+</html>

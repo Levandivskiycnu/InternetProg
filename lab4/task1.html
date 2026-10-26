@@ -1,0 +1,246 @@
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лабораторна робота №4</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f1f3f5;
+            padding: 20px;
+        }
+
+        main {
+            max-width: 750px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+        }
+
+        fieldset {
+            margin-bottom: 18px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+
+        legend {
+            font-weight: bold;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0;
+        }
+
+        select, input[type="text"] {
+            padding: 8px;
+            max-width: 100%;
+        }
+
+        input[type="text"] {
+            width: 95%;
+        }
+
+        button {
+            padding: 12px 18px;
+            background: #2463eb;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+            overflow-wrap: anywhere;
+        }
+
+        th {
+            background: #e8edf5;
+        }
+    </style>
+</head>
+<body>
+
+<main>
+    <h1>Лабораторна робота №4</h1>
+    <h2>Тестування з вебтехнологій</h2>
+
+    <form id="testForm">
+
+        <fieldset>
+            <legend>1. Що описує HTML?</legend>
+            <label><input type="radio" name="q1" value="1"> Структуру сторінки</label>
+            <label><input type="radio" name="q1" value="2"> Стилі сторінки</label>
+            <label><input type="radio" name="q1" value="3"> Лише анімації</label>
+        </fieldset>
+
+        <fieldset>
+            <legend>2. Для чого використовують CSS?</legend>
+            <label><input type="radio" name="q2" value="1"> Для баз даних</label>
+            <label><input type="radio" name="q2" value="2"> Для оформлення сторінки</label>
+            <label><input type="radio" name="q2" value="3"> Для створення серверів</label>
+        </fieldset>
+
+        <fieldset>
+            <legend>3. Які з цих елементів є HTML-тегами?</legend>
+            <label><input type="checkbox" name="q3" value="p"> p</label>
+            <label><input type="checkbox" name="q3" value="div"> div</label>
+            <label><input type="checkbox" name="q3" value="h1"> h1</label>
+            <label><input type="checkbox" name="q3" value="color"> color</label>
+        </fieldset>
+
+        <fieldset>
+            <legend>4. Які властивості належать CSS?</legend>
+            <label><input type="checkbox" name="q4" value="color"> color</label>
+            <label><input type="checkbox" name="q4" value="margin"> margin</label>
+            <label><input type="checkbox" name="q4" value="padding"> padding</label>
+            <label><input type="checkbox" name="q4" value="console"> console</label>
+        </fieldset>
+
+        <fieldset>
+            <legend>5. Який метод шукає елемент за ID?</legend>
+            <select name="q5">
+                <option value="">Виберіть відповідь</option>
+                <option value="1">getElementsByClassName()</option>
+                <option value="2">getElementById()</option>
+                <option value="3">queryAll()</option>
+            </select>
+        </fieldset>
+
+        <fieldset>
+            <legend>6. Які методи можуть вибирати DOM-елементи?</legend>
+            <select name="q6" multiple size="4">
+                <option value="querySelector">querySelector()</option>
+                <option value="getElementById">getElementById()</option>
+                <option value="querySelectorAll">querySelectorAll()</option>
+                <option value="makeElement">makeElement()</option>
+            </select>
+            <p>Для вибору кількох варіантів утримуйте Ctrl.</p>
+        </fieldset>
+
+        <fieldset>
+            <legend>7. Яка мова додає інтерактивність вебсторінці?</legend>
+            <input type="text" name="q7" placeholder="Введіть відповідь">
+        </fieldset>
+
+        <button type="submit">Завершити тестування</button>
+    </form>
+
+    <section id="results" hidden>
+        <h2>Результати тестування</h2>
+        <div id="resultTable"></div>
+        <p id="totalScore"></p>
+    </section>
+</main>
+
+<script>
+    const form = document.getElementById("testForm");
+    const results = document.getElementById("results");
+    const resultTable = document.getElementById("resultTable");
+    const totalScore = document.getElementById("totalScore");
+
+    const correctAnswers = {
+        q1: ["1"],
+        q2: ["2"],
+        q3: ["p", "div", "h1"],
+        q4: ["color", "margin", "padding"],
+        q5: ["2"],
+        q6: ["querySelector", "getElementById", "querySelectorAll"],
+        q7: ["javascript"]
+    };
+
+    function getUserAnswer(name) {
+        const elements = form.querySelectorAll(`[name="${name}"]`);
+
+        if (elements[0].type === "radio") {
+            return Array.from(elements)
+                .filter(element => element.checked)
+                .map(element => element.value);
+        }
+
+        if (elements[0].type === "checkbox") {
+            return Array.from(elements)
+                .filter(element => element.checked)
+                .map(element => element.value);
+        }
+
+        if (elements[0].tagName === "SELECT" && elements[0].multiple) {
+            return Array.from(elements[0].selectedOptions)
+                .map(option => option.value);
+        }
+
+        return [elements[0].value.trim()];
+    }
+
+    form.addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        let total = 0;
+
+        let tableHTML = `
+            <table>
+                <thead>
+                    <tr>
+                        <th>№</th>
+                        <th>Ваша відповідь</th>
+                        <th>Бали</th>
+                    </tr>
+                </thead>
+                <tbody>
+        `;
+
+        for (let i = 1; i <= 7; i++) {
+            const name = `q${i}`;
+            const answers = getUserAnswer(name);
+            const correct = correctAnswers[name];
+
+            const normalized = name === "q7"
+                ? answers.map(answer => answer.toLowerCase())
+                : answers;
+
+            const correctCount = normalized.filter(
+                answer => correct.includes(answer)
+            ).length;
+
+            const wrongCount = normalized.filter(
+                answer => !correct.includes(answer)
+            ).length;
+
+            const score = Math.max(0, correctCount - wrongCount);
+
+            total += score;
+
+            tableHTML += `
+                <tr>
+                    <td>${i}</td>
+                    <td>${answers.filter(Boolean).join(", ") || "Без відповіді"}</td>
+                    <td>${score}</td>
+                </tr>
+            `;
+        }
+
+        tableHTML += "</tbody></table>";
+
+        resultTable.innerHTML = tableHTML;
+        totalScore.textContent = `Загальна кількість балів: ${total}`;
+        results.hidden = false;
+    });
+</script>
+<a href = "lab4.html">Лаб 4</a>
+
+</body>
+</html>
