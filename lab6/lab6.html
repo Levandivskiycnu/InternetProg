@@ -1,0 +1,333 @@
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Лабораторна робота №6</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            margin: 30px;
+        }
+
+        .task {
+            margin-bottom: 25px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+
+        input {
+            padding: 8px;
+            margin: 5px;
+        }
+
+        button {
+            padding: 8px 15px;
+            cursor: pointer;
+        }
+
+        .result {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Лабораторна робота №6</h1>
+
+    <!-- Завдання 1 -->
+    <div class="task">
+        <h2>Завдання 1. Довжина рядка</h2>
+
+        <input type="text" id="text1" placeholder="Введіть рядок">
+        <button onclick="checkLength()">Обчислити</button>
+
+        <div class="result" id="result1"></div>
+    </div>
+
+    <!-- Завдання 2 -->
+    <div class="task">
+        <h2>Завдання 2. Зміна регістру</h2>
+
+        <input type="text" id="text2" placeholder="Введіть рядок">
+        <button onclick="changeCase()">Перетворити</button>
+
+        <div class="result" id="result2"></div>
+    </div>
+
+    <!-- Завдання 3 -->
+    <div class="task">
+        <h2>Завдання 3. Пошук символу</h2>
+
+        <input type="text" id="text3" placeholder="Введіть рядок">
+        <input type="text" id="symbol3" placeholder="Символ" maxlength="1">
+        <button onclick="findSymbol()">Знайти</button>
+
+        <div class="result" id="result3"></div>
+    </div>
+
+    <!-- Завдання 4 -->
+    <div class="task">
+        <h2>Завдання 4. Підрахунок символів</h2>
+
+        <input type="text" id="text4" placeholder="Введіть рядок">
+        <input type="text" id="symbol4" placeholder="Символ" maxlength="1">
+        <button onclick="countSymbol()">Порахувати</button>
+
+        <div class="result" id="result4"></div>
+    </div>
+
+    <!-- Завдання 5 -->
+    <div class="task">
+        <h2>Завдання 5. Заміна сусідніх символів</h2>
+
+        <input type="text" id="text5" placeholder="Введіть рядок">
+        <button onclick="swapSymbols()">Замінити</button>
+
+        <div class="result" id="result5"></div>
+    </div>
+
+    <!-- Завдання 6 -->
+    <div class="task">
+        <h2>Завдання 6. Перевірка на спам</h2>
+
+        <input type="text" id="text6" placeholder="Введіть текст">
+        <button onclick="checkSpam()">Перевірити</button>
+
+        <div class="result" id="result6"></div>
+    </div>
+
+    <!-- Завдання 7 -->
+    <div class="task">
+        <h2>Завдання 7. Скорочення рядка</h2>
+
+        <input type="text" id="text7" placeholder="Введіть рядок">
+        <input type="number" id="maxLength7" placeholder="Максимальна довжина">
+        <button onclick="truncateText()">Скоротити</button>
+
+        <div class="result" id="result7"></div>
+    </div>
+
+    <!-- Завдання 8 -->
+    <div class="task">
+        <h2>Завдання 8. Видалення внутрішніх пробілів</h2>
+
+        <input type="text" id="text8" placeholder="Введіть рядок">
+        <button onclick="removeSpaces()">Виконати</button>
+
+        <div class="result" id="result8"></div>
+    </div>
+
+    <!-- Завдання 9 -->
+    <div class="task">
+        <h2>Завдання 9. Пошук повторюваних символів</h2>
+
+        <input type="text" id="text9" placeholder="Введіть рядок">
+        <button onclick="checkRepeated()">Перевірити</button>
+
+        <div class="result" id="result9"></div>
+    </div>
+
+    <!-- Завдання 10 -->
+    <div class="task">
+        <h2>Завдання 10. Пошук однакових літер</h2>
+
+        <input type="text" id="text10" placeholder="Введіть рядок">
+        <button onclick="checkSameLetters()">Перевірити</button>
+
+        <div class="result" id="result10"></div>
+    </div>
+
+    <script>
+
+        // Завдання 1
+        function getLength(str) {
+            return str.length;
+        }
+
+        function checkLength() {
+            let text = document.getElementById("text1").value;
+
+            document.getElementById("result1").textContent =
+                "Довжина рядка: " + getLength(text);
+        }
+
+
+        // Завдання 2
+        function changeCase() {
+            let text = document.getElementById("text2").value;
+
+            document.getElementById("result2").innerHTML =
+                "Верхній регістр: " + text.toUpperCase() +
+                "<br>Нижній регістр: " + text.toLowerCase();
+        }
+
+
+        // Завдання 3
+        function findIndex(str, symbol) {
+            return str.indexOf(symbol);
+        }
+
+        function findSymbol() {
+            let text = document.getElementById("text3").value;
+            let symbol = document.getElementById("symbol3").value;
+
+            if (symbol === "") {
+                document.getElementById("result3").textContent =
+                    "Введіть символ";
+                return;
+            }
+
+            document.getElementById("result3").textContent =
+                "Індекс символу: " + findIndex(text, symbol);
+        }
+
+
+        // Завдання 4
+        function countOccurrences(str, symbol) {
+            let count = 0;
+
+            for (let i = 0; i < str.length; i++) {
+                if (str[i] === symbol) {
+                    count++;
+                }
+            }
+
+            return count;
+        }
+
+        function countSymbol() {
+            let text = document.getElementById("text4").value;
+            let symbol = document.getElementById("symbol4").value;
+
+            if (symbol === "") {
+                document.getElementById("result4").textContent =
+                    "Введіть символ";
+                return;
+            }
+
+            document.getElementById("result4").textContent =
+                "Кількість входжень: " + countOccurrences(text, symbol);
+        }
+
+
+        // Завдання 5
+        function swapPairs(str) {
+            let result = "";
+
+            for (let i = 0; i < str.length; i += 2) {
+                if (i + 1 < str.length) {
+                    result += str[i + 1] + str[i];
+                } else {
+                    result += str[i];
+                }
+            }
+
+            return result;
+        }
+
+        function swapSymbols() {
+            let text = document.getElementById("text5").value;
+
+            document.getElementById("result5").textContent =
+                "Результат: " + swapPairs(text);
+        }
+
+
+        // Завдання 6
+        function isSpam(str) {
+            let spamWords = [
+                "100% безкоштовно",
+                "збільшення продажів",
+                "тільки сьогодні",
+                "не видаляйте"
+            ];
+
+            let text = str.toLowerCase();
+
+            return spamWords.some(function(word) {
+                return text.includes(word);
+            });
+        }
+
+        function checkSpam() {
+            let text = document.getElementById("text6").value;
+
+            document.getElementById("result6").textContent =
+                isSpam(text) ? "Виявлено спам: true" : "Спаму не виявлено: false";
+        }
+
+
+        // Завдання 7
+        function truncate(str, maxLength) {
+            if (str.length <= maxLength) {
+                return str;
+            }
+
+            if (maxLength <= 3) {
+                return ".".repeat(maxLength);
+            }
+
+            return str.slice(0, maxLength - 3) + "...";
+        }
+
+        function truncateText() {
+            let text = document.getElementById("text7").value;
+            let maxLength = Number(document.getElementById("maxLength7").value);
+
+            if (!Number.isInteger(maxLength) || maxLength < 0) {
+                document.getElementById("result7").textContent =
+                    "Введіть коректну довжину";
+                return;
+            }
+
+            document.getElementById("result7").textContent =
+                "Результат: " + truncate(text, maxLength);
+        }
+
+
+        // Завдання 8
+        function removeInnerSpaces(str) {
+            return str.replace(/(\S)\s+(?=\S)/g, "$1");
+        }
+
+        function removeSpaces() {
+            let text = document.getElementById("text8").value;
+
+            document.getElementById("result8").textContent =
+                "Результат: " + removeInnerSpaces(text);
+        }
+
+
+        // Завдання 9
+        function hasRepeatedCharacters(str) {
+            return /(.)\1{2,}/.test(str);
+        }
+
+        function checkRepeated() {
+            let text = document.getElementById("text9").value;
+
+            document.getElementById("result9").textContent =
+                hasRepeatedCharacters(text) ? "true" : "false";
+        }
+
+
+        // Завдання 10
+        function hasSameLetters(str) {
+            return /([a-zа-яіїєґ])\1+/i.test(str);
+        }
+
+        function checkSameLetters() {
+            let text = document.getElementById("text10").value;
+
+            document.getElementById("result10").textContent =
+                hasSameLetters(text) ? "true" : "false";
+        }
+
+    </script>
+
+</body>
+</html>
