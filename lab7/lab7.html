@@ -1,0 +1,444 @@
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лабораторна робота №7</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 30px;
+        }
+
+        .task {
+            margin-bottom: 25px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+
+        input {
+            padding: 8px;
+            margin: 5px;
+            width: 200px;
+        }
+
+        button {
+            padding: 9px 15px;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+        .result {
+            margin-top: 12px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Лабораторна робота №7</h1>
+
+
+    <!-- Завдання 1 -->
+    <div class="task">
+        <h2>Завдання 1. Робота з часом</h2>
+
+        <p>Поточний час:</p>
+        <h2 id="clock"></h2>
+
+        <input type="number" id="seconds" placeholder="Кількість секунд">
+
+        <button onclick="changeTime()">Змінити час</button>
+
+        <div class="result" id="timeResult"></div>
+    </div>
+
+
+    <!-- Завдання 2.1 -->
+    <div class="task">
+        <h2>Завдання 2.1. Поточна дата, день тижня і час</h2>
+
+        <button onclick="showCurrentDate()">Виконати</button>
+
+        <div class="result" id="dateResult"></div>
+    </div>
+
+
+    <!-- Завдання 2.2 -->
+    <div class="task">
+        <h2>Завдання 2.2. Останній день місяця</h2>
+
+        <input type="number" id="year" placeholder="Введіть рік">
+        <input type="number" id="month" placeholder="Номер місяця">
+
+        <button onclick="showLastDay()">Визначити</button>
+
+        <div class="result" id="lastDayResult"></div>
+    </div>
+
+
+    <!-- Завдання 2.3 -->
+    <div class="task">
+        <h2>Завдання 2.3. Кількість секунд протягом дня</h2>
+
+        <button onclick="showSeconds()">Виконати</button>
+
+        <div class="result" id="secondsResult"></div>
+    </div>
+
+
+    <!-- Завдання 3 -->
+    <div class="task">
+        <h2>Завдання 3. Клас Car</h2>
+
+        <input type="text" id="brand" placeholder="Марка автомобіля">
+        <input type="text" id="model" placeholder="Модель">
+        <input type="number" id="yearCar" placeholder="Рік випуску">
+
+        <button onclick="showCar()">Показати інформацію</button>
+
+        <div class="result" id="carResult"></div>
+    </div>
+
+
+    <!-- Завдання 4 -->
+    <div class="task">
+        <h2>Завдання 4. Клас ElectricCar</h2>
+
+        <input type="text" id="electricBrand" placeholder="Марка автомобіля">
+        <input type="text" id="electricModel" placeholder="Модель">
+        <input type="number" id="electricYear" placeholder="Рік випуску">
+        <input type="number" id="battery" placeholder="Батарея (kWh)">
+
+        <button onclick="showElectricCar()">Показати інформацію</button>
+
+        <div class="result" id="electricResult"></div>
+    </div>
+
+
+    <!-- Завдання 5 -->
+    <div class="task">
+        <h2>Завдання 5. Статичний метод</h2>
+
+        <input type="number" id="numberA" placeholder="Перше число">
+        <input type="number" id="numberB" placeholder="Друге число">
+
+        <button onclick="calculateSum()">Додати</button>
+
+        <div class="result" id="sumResult"></div>
+    </div>
+
+
+    <!-- Завдання 6 -->
+    <div class="task">
+        <h2>Завдання 6. Варіант 8 — Person та Employee</h2>
+
+        <input type="text" id="personName" placeholder="Ім'я">
+        <input type="number" id="personAge" placeholder="Вік">
+        <input type="text" id="position" placeholder="Посада">
+
+        <button onclick="showEmployee()">Показати інформацію</button>
+        <button onclick="clearEmployeeFields()">Очистити поля</button>
+
+        <div class="result" id="employeeResult"></div>
+    </div>
+
+
+    <script>
+
+        // Завдання 1
+
+        let time = {
+            hours: 0,
+            minutes: 0,
+            seconds: 0
+        };
+
+        function showTime() {
+            let h = String(time.hours).padStart(2, "0");
+            let m = String(time.minutes).padStart(2, "0");
+            let s = String(time.seconds).padStart(2, "0");
+
+            document.getElementById("clock").textContent =
+                h + ":" + m + ":" + s;
+        }
+
+        function getCurrentTime() {
+            let now = new Date();
+
+            time.hours = now.getHours();
+            time.minutes = now.getMinutes();
+            time.seconds = now.getSeconds();
+
+            showTime();
+        }
+
+        function changeTime() {
+            let addedSeconds = Number(
+                document.getElementById("seconds").value
+            );
+
+            if (document.getElementById("seconds").value === "" ||
+                !Number.isInteger(addedSeconds)) {
+                document.getElementById("timeResult").textContent =
+                    "Введіть цілу кількість секунд";
+                return;
+            }
+
+            let totalSeconds =
+                time.hours * 3600 +
+                time.minutes * 60 +
+                time.seconds;
+
+            totalSeconds += addedSeconds;
+
+            totalSeconds =
+                ((totalSeconds % 86400) + 86400) % 86400;
+
+            time.hours = Math.floor(totalSeconds / 3600);
+            time.minutes = Math.floor((totalSeconds % 3600) / 60);
+            time.seconds = totalSeconds % 60;
+
+            showTime();
+
+            document.getElementById("timeResult").textContent =
+                "Час успішно змінено";
+        }
+
+
+        // Завдання 2.1
+
+        function showCurrentDate() {
+            let now = new Date();
+
+            let day = now.getDate();
+
+            let month = now.toLocaleDateString("uk-UA", {
+                month: "long"
+            });
+
+            let year = now.getFullYear();
+
+            let weekday = now.toLocaleDateString("uk-UA", {
+                weekday: "long"
+            });
+
+            let hours = String(now.getHours()).padStart(2, "0");
+            let minutes = String(now.getMinutes()).padStart(2, "0");
+
+            document.getElementById("dateResult").innerHTML =
+                "Дата: " + day + " " + month + " " + year + " року" +
+                "<br>День тижня: " + weekday +
+                "<br>Час: " + hours + ":" + minutes;
+        }
+
+
+        // Завдання 2.2
+
+        function getLastDay(year, month) {
+            return new Date(year, month, 0).getDate();
+        }
+
+        function showLastDay() {
+            let year = Number(document.getElementById("year").value);
+            let month = Number(document.getElementById("month").value);
+
+            if (!Number.isInteger(year) || year < 1 ||
+                !Number.isInteger(month) || month < 1 || month > 12) {
+
+                document.getElementById("lastDayResult").textContent =
+                    "Введіть правильний рік і місяць";
+                return;
+            }
+
+            document.getElementById("lastDayResult").textContent =
+                "Останній день місяця: " + getLastDay(year, month);
+        }
+
+
+        // Завдання 2.3
+
+        function getDaySeconds() {
+            let now = new Date();
+
+            let passed =
+                now.getHours() * 3600 +
+                now.getMinutes() * 60 +
+                now.getSeconds();
+
+            let remaining = 86400 - passed;
+
+            return {
+                passedSeconds: passed,
+                remainingSeconds: remaining
+            };
+        }
+
+        function showSeconds() {
+            let result = getDaySeconds();
+
+            document.getElementById("secondsResult").innerHTML =
+                "Секунд від початку дня: " + result.passedSeconds +
+                "<br>Секунд до початку наступного дня: " +
+                result.remainingSeconds;
+        }
+
+
+        // Завдання 3
+
+        class Car {
+            constructor(brand, model, year) {
+                this.brand = brand;
+                this.model = model;
+                this.year = year;
+            }
+
+            info() {
+                return `Автомобіль: ${this.brand} ${this.model}, ${this.year} року.`;
+            }
+        }
+
+        function showCar() {
+            let brand = document.getElementById("brand").value;
+            let model = document.getElementById("model").value;
+            let year = document.getElementById("yearCar").value;
+
+            if (!brand || !model || !year) {
+                document.getElementById("carResult").textContent =
+                    "Заповніть усі поля";
+                return;
+            }
+
+            let car1 = new Car(brand, model, Number(year));
+
+            document.getElementById("carResult").textContent =
+                car1.info();
+        }
+
+
+        // Завдання 4
+
+        class ElectricCar extends Car {
+            constructor(brand, model, year, battery) {
+                super(brand, model, year);
+                this.battery = battery;
+            }
+
+            charge() {
+                return `${this.brand} ${this.model} заряджається... Батарея: ${this.battery} kWh.`;
+            }
+        }
+
+        function showElectricCar() {
+            let brand = document.getElementById("electricBrand").value;
+            let model = document.getElementById("electricModel").value;
+            let year = document.getElementById("electricYear").value;
+            let battery = document.getElementById("battery").value;
+
+            if (!brand || !model || !year || !battery) {
+                document.getElementById("electricResult").textContent =
+                    "Заповніть усі поля";
+                return;
+            }
+
+            let tesla = new ElectricCar(
+                brand,
+                model,
+                Number(year),
+                Number(battery)
+            );
+
+            document.getElementById("electricResult").textContent =
+                tesla.info() + " " + tesla.charge();
+        }
+
+
+        // Завдання 5
+
+        class MathHelper {
+            static add(a, b) {
+                return a + b;
+            }
+        }
+
+        function calculateSum() {
+            let a = document.getElementById("numberA").value;
+            let b = document.getElementById("numberB").value;
+
+            if (a === "" || b === "") {
+                document.getElementById("sumResult").textContent =
+                    "Введіть обидва числа";
+                return;
+            }
+
+            let result = MathHelper.add(Number(a), Number(b));
+
+            document.getElementById("sumResult").textContent =
+                "Сума: " + result;
+        }
+
+
+        // Завдання 6 — Варіант 8
+
+        class Person {
+            constructor(name, age) {
+                this.name = name;
+                this.age = age;
+            }
+
+            sayHello() {
+                return `Привіт! Мене звати ${this.name}, мені ${this.age} років.`;
+            }
+        }
+
+        class Employee extends Person {
+            constructor(name, age, position) {
+                super(name, age);
+                this.position = position;
+            }
+
+            work() {
+                return `${this.name} працює на посаді: ${this.position}.`;
+            }
+        }
+
+        function showEmployee() {
+            let name = document.getElementById("personName").value;
+            let age = document.getElementById("personAge").value;
+            let position = document.getElementById("position").value;
+
+            if (!name || !age || !position) {
+                document.getElementById("employeeResult").textContent =
+                    "Заповніть усі поля";
+                return;
+            }
+
+            let employee = new Employee(name, Number(age), position);
+
+            document.getElementById("employeeResult").textContent =
+                employee.sayHello() + " " + employee.work();
+        }
+
+        function clearEmployeeFields() {
+            document.getElementById("personName").value = "";
+            document.getElementById("personAge").value = "";
+            document.getElementById("position").value = "";
+
+            document.getElementById("employeeResult").textContent = "";
+        }
+
+
+        // Початкове отримання поточного часу
+
+        getCurrentTime();
+
+    </script>
+    <br>
+    <a href="../index.html">Головна</a>
+
+</body>
+</html>
