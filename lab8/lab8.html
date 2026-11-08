@@ -1,0 +1,380 @@
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лабораторна робота №8</title>
+
+    <style>
+       body {
+    font-family: Arial, sans-serif;
+    background: white;
+    color: black;
+    text-align: center;
+}
+
+h1 {
+    font-size: 26px;
+}
+
+h2 {
+    font-size: 21px;
+}
+
+h3 {
+    font-size: 17px;
+}
+
+.section {
+    margin: 20px auto;
+    padding: 10px;
+}
+
+.stage {
+    width: 700px;
+    max-width: 95%;
+    height: 100px;
+    border: 1px solid black;
+    margin: 10px auto;
+    position: relative;
+    overflow: hidden;
+}
+
+.square {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 30px;
+    left: 0;
+    background: #263b70;
+}
+
+canvas {
+    border: 1px solid black;
+    max-width: 100%;
+    cursor: pointer;
+}
+
+button {
+    padding: 6px 12px;
+    margin: 4px;
+    cursor: pointer;
+}
+    </style>
+</head>
+
+<body>
+
+    <h1>Лабораторна робота №8</h1>
+    <h2>Анімація в JavaScript</h2>
+
+    <div class="section">
+        <h2>Завдання 1. Приклади анімації</h2>
+
+        <h3>1. Анімація за допомогою setInterval()</h3>
+
+        <div class="stage">
+            <div class="square" id="box1"></div>
+        </div>
+
+        <button onclick="startInterval()">Запустити setInterval</button>
+        <button onclick="stopInterval()">Зупинити</button>
+        <button onclick="resetInterval()">Скинути</button>
+
+        <h3>2. Анімація за допомогою requestAnimationFrame()</h3>
+
+        <div class="stage">
+            <div class="square" id="box2"></div>
+        </div>
+
+        <button onclick="startFrame()">Запустити requestAnimationFrame</button>
+        <button onclick="stopFrame()">Зупинити</button>
+        <button onclick="resetFrame()">Скинути</button>
+
+        <h3>3. Різні способи зміни швидкості</h3>
+
+        <div class="stage">
+            <div class="square" id="box3"></div>
+        </div>
+
+        <button onclick="startLinear()">Лінійний рух</button>
+        <button onclick="startSlow()">Прискорення</button>
+        <button onclick="resetThird()">Скинути</button>
+
+    </div>
+
+    <div class="section">
+        <h2>Завдання 2. Анімований логотип ІПЗ</h2>
+
+        <canvas id="canvas" width="600" height="400"></canvas>
+
+        <p>Натисни на логотип, щоб зупинити або продовжити анімацію.</p>
+
+        <button onclick="changeSize()">Змінити розмір</button>
+        <button onclick="changeDirection()">Змінити напрямок</button>
+        <button onclick="changeText()">Показати / приховати текст</button>
+        <button onclick="changeColor()">Змінити колір</button>
+        <button onclick="addObject()">Додати об'єкт</button>
+    </div>
+
+    <script>
+
+        // ЗАВДАННЯ 1
+
+        // Анімація через setInterval
+
+        let box1 = document.getElementById("box1");
+        let position1 = 0;
+        let timer1;
+
+        function startInterval() {
+            if (timer1) return;
+
+            timer1 = setInterval(function() {
+                position1 += 2;
+
+                if (position1 > 700) {
+                    position1 = 0;
+                }
+
+                box1.style.left = position1 + "px";
+            }, 20);
+        }
+
+        function stopInterval() {
+            clearInterval(timer1);
+            timer1 = null;
+        }
+
+        function resetInterval() {
+            stopInterval();
+            position1 = 0;
+            box1.style.left = "0px";
+        }
+
+
+        // Анімація через requestAnimationFrame
+
+        let box2 = document.getElementById("box2");
+        let position2 = 0;
+        let frameId;
+        let frameRunning = false;
+
+        function moveFrame() {
+            if (!frameRunning) return;
+
+            position2 += 2;
+
+            if (position2 > 700) {
+                position2 = 0;
+            }
+
+            box2.style.left = position2 + "px";
+
+            frameId = requestAnimationFrame(moveFrame);
+        }
+
+        function startFrame() {
+            if (frameRunning) return;
+
+            frameRunning = true;
+            frameId = requestAnimationFrame(moveFrame);
+        }
+
+        function stopFrame() {
+            frameRunning = false;
+            cancelAnimationFrame(frameId);
+        }
+
+        function resetFrame() {
+            stopFrame();
+            position2 = 0;
+            box2.style.left = "0px";
+        }
+
+
+        // Лінійний рух і прискорення
+
+        let box3 = document.getElementById("box3");
+        let position3 = 0;
+        let speed3 = 2;
+        let timer3;
+
+        function startLinear() {
+            clearInterval(timer3);
+            position3 = 0;
+            speed3 = 2;
+
+            timer3 = setInterval(function() {
+                position3 += 2;
+                box3.style.left = position3 + "px";
+
+                if (position3 > 700) {
+                    clearInterval(timer3);
+                }
+            }, 20);
+        }
+
+        function startSlow() {
+            clearInterval(timer3);
+            position3 = 0;
+            speed3 = 0.5;
+
+            timer3 = setInterval(function() {
+                speed3 += 0.1;
+                position3 += speed3;
+
+                box3.style.left = position3 + "px";
+
+                if (position3 > 700) {
+                    clearInterval(timer3);
+                }
+            }, 20);
+        }
+
+        function resetThird() {
+            clearInterval(timer3);
+            position3 = 0;
+            box3.style.left = "0px";
+        }
+
+
+        // ЗАВДАННЯ 2
+
+        let canvas = document.getElementById("canvas");
+        let ctx = canvas.getContext("2d");
+
+        let centerX = 300;
+        let centerY = 200;
+
+        let direction = 1;
+        let speed = 0.03;
+
+        let size = 1;
+        let running = true;
+        let showText = true;
+        let color = "#42a5f5";
+
+        let objects = [
+            { angle: 0, distance: 120, size: 12 },
+            { angle: 2, distance: 120, size: 8 },
+            { angle: 4, distance: 120, size: 10 }
+        ];
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Центральне коло
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, 65 * size, 0, Math.PI * 2);
+            ctx.fillStyle = "#263b70";
+            ctx.fill();
+
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 4;
+            ctx.stroke();
+
+            // Логотип
+            ctx.fillStyle = "white";
+            ctx.font = "bold " + (30 * size) + "px Arial";
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            ctx.fillText("ІПЗ", centerX, centerY);
+
+            // Орбіта
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, 120 * size, 0, Math.PI * 2);
+            ctx.strokeStyle = "#53617c";
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            // Рухомі об'єкти
+            for (let i = 0; i < objects.length; i++) {
+                let x = centerX + Math.cos(objects[i].angle) *
+                    objects[i].distance * size;
+
+                let y = centerY + Math.sin(objects[i].angle) *
+                    objects[i].distance * size;
+
+                ctx.beginPath();
+                ctx.arc(x, y, objects[i].size * size, 0, Math.PI * 2);
+                ctx.fillStyle = color;
+                ctx.fill();
+            }
+
+            // Додатковий текст
+            if (showText) {
+                ctx.fillStyle = "white";
+                ctx.font = "20px Arial";
+                ctx.fillText("Програмна інженерія", centerX, 330);
+            }
+        }
+
+        function animate() {
+            if (running) {
+                for (let i = 0; i < objects.length; i++) {
+                    objects[i].angle += speed * direction;
+                }
+
+                draw();
+            }
+        }
+
+        // Запуск і зупинка логотипу
+        canvas.onclick = function() {
+            running = !running;
+        };
+
+        // Зміна розміру
+        function changeSize() {
+            size += 0.2;
+
+            if (size > 1.8) {
+                size = 0.6;
+            }
+
+            draw();
+        }
+
+        // Зміна напрямку
+        function changeDirection() {
+            direction = direction * -1;
+        }
+
+        // Поява та зникнення тексту
+        function changeText() {
+            showText = !showText;
+            draw();
+        }
+
+        // Зміна кольору
+        function changeColor() {
+            if (color == "#42a5f5") {
+                color = "#ff9800";
+            } else {
+                color = "#42a5f5";
+            }
+
+            draw();
+        }
+
+        // Додавання нового об'єкта
+        function addObject() {
+            objects.push({
+                angle: Math.random() * 6,
+                distance: 120,
+                size: 7 + Math.random() * 8
+            });
+
+            draw();
+        }
+
+        // Запуск анімації логотипу
+        draw();
+        setInterval(animate, 20);
+
+    </script>
+
+</body>
+</html>
