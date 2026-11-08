@@ -1,0 +1,152 @@
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Task 2</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            margin: 40px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input {
+            padding: 8px;
+            width: 280px;
+            border: 2px solid gray;
+            border-radius: 5px;
+        }
+
+        .valid {
+            border-color: green;
+        }
+
+        .invalid {
+            border-color: red;
+        }
+
+        .message {
+            margin-left: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+<!-- Завдання 2.1 -->
+    <h2>Реєстраційна форма</h2>
+
+    <form id="myForm">
+
+        <div class="form-group">
+            <label>E-mail:</label>
+            <input type="text" id="email">
+            <span class="message"></span>
+        </div>
+
+        <div class="form-group">
+            <label>Ім'я та прізвище:</label>
+            <input type="text" id="fullname">
+            <span class="message"></span>
+        </div>
+
+        <div class="form-group">
+            <label>Логін:</label>
+            <input type="text" id="login">
+            <span class="message"></span>
+        </div>
+
+        <div class="form-group">
+            <label>Пароль:</label>
+            <input type="password" id="password">
+            <span class="message"></span>
+        </div>
+
+        <div class="form-group">
+            <label>Поштовий індекс:</label>
+            <input type="text" id="index">
+            <span class="message"></span>
+        </div>
+
+        <button type="button" id="checkButton">
+            Перевірити
+        </button>
+
+    </form>
+<!-- Завдання 2.2 -->
+    <script>
+        const fields = [
+            {
+                id: "email",
+                regex: /^[^\s@]+@pnu\.edu\.ua$/i,
+                error: "Введіть e-mail з доменом @pnu.edu.ua"
+            },
+            {
+                id: "fullname",
+                regex: /^[A-ZА-ЯІЇЄҐ][a-zа-яіїєґ]*\s+[A-ZА-ЯІЇЄҐ]+$/,
+                error: "Формат: Ім'я ПРІЗВИЩЕ"
+            },
+            {
+                id: "login",
+                regex: /^[a-zA-Z]+$/,
+                error: "Логін повинен містити тільки латинські літери"
+            },
+            {
+                id: "password",
+                regex: /^(?=.*[a-zA-Zа-яА-ЯіїєґІЇЄҐ])(?=.*[0-9])(?=.*[_\-!@#$%^&*;])\S{8,}$/,
+                error: "Мінімум 8 символів, буква, цифра і спецсимвол"
+            },
+            {
+                id: "index",
+                regex: /^[0-9]{5}$/,
+                error: "Індекс повинен складатися з 5 цифр"
+            }
+        ];
+
+        document.getElementById("checkButton").addEventListener("click", function() {
+
+            fields.forEach(function(field) {
+
+                let input = document.getElementById(field.id);
+                let message = input.nextElementSibling;
+
+                if (field.regex.test(input.value)) {
+
+                    input.classList.remove("invalid");
+                    input.classList.add("valid");
+
+                    message.textContent = "✓";
+                    message.style.color = "green";
+
+                } else {
+
+                    input.classList.remove("valid");
+                    input.classList.add("invalid");
+
+                    message.textContent = "✗ " + field.error;
+                    message.style.color = "red";
+
+                }
+
+            });
+
+        });
+    </script>
+    <br>
+    <a href="lab5.html">Лабораторна 5</a>
+</body>
+</html>
