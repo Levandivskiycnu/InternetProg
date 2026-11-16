@@ -212,29 +212,29 @@
 
         // Завдання 2.1
 
-        function showCurrentDate() {
-            let now = new Date();
+            function showCurrentDate() {
+                let now = new Date();
 
-            let day = now.getDate();
+                let day = now.getDate();
 
-            let month = now.toLocaleDateString("uk-UA", {
-                month: "long"
-            });
+                let month = now.toLocaleDateString("uk-UA", {
+                    month: "long"
+                });
 
-            let year = now.getFullYear();
+                let year = now.getFullYear();
 
-            let weekday = now.toLocaleDateString("uk-UA", {
-                weekday: "long"
-            });
+                let weekday = now.toLocaleDateString("uk-UA", {
+                    weekday: "long"
+                });
 
-            let hours = String(now.getHours()).padStart(2, "0");
-            let minutes = String(now.getMinutes()).padStart(2, "0");
+                let hours = String(now.getHours()).padStart(2, "0");
+                let minutes = String(now.getMinutes()).padStart(2, "0");
 
-            document.getElementById("dateResult").innerHTML =
-                "Дата: " + day + " " + month + " " + year + " року" +
-                "<br>День тижня: " + weekday +
-                "<br>Час: " + hours + ":" + minutes;
-        }
+                document.getElementById("dateResult").innerHTML =
+                    "Дата: " + day + " " + month + " " + year + " року" +
+                    "<br>День тижня: " + weekday +
+                    "<br>Час: " + hours + ":" + minutes;
+            }
 
 
         // Завдання 2.2
