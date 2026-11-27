@@ -16,8 +16,7 @@ export class LibraryCard {
 
     borrowBook(): boolean {
         if (this._borrowedBooksCount >= 5) {
-            console.log("Досягнуто ліміт книг!");
-            return false;
+            throw new Error("Досягнуто ліміт книг!");
         }
 
         this._borrowedBooksCount++;
@@ -26,8 +25,7 @@ export class LibraryCard {
 
     returnBook(): boolean {
         if (this._borrowedBooksCount <= 0) {
-            console.log("Немає книг для повернення!");
-            return false;
+            throw new Error("Немає книг для повернення!");
         }
 
         this._borrowedBooksCount--;

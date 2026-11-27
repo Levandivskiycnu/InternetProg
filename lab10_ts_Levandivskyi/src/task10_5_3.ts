@@ -7,7 +7,7 @@ function ReadOnlyMethod(
     descriptor.writable = false;
 }
 
-class Library {
+export class Library {
     constructor(public name: string) {}
 
     @ReadOnlyMethod
@@ -15,8 +15,3 @@ class Library {
         return `Бібліотека: ${this.name}`;
     }
 }
-
-// Демонстрація
-const library = new Library("Міська бібліотека");
-
-console.log(library.getInfo());
