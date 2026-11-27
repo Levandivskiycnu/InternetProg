@@ -1,4 +1,6 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Rectangle = exports.Circle = exports.Shape = void 0;
 class Shape {
     constructor(name) {
         this.name = name;
@@ -9,6 +11,7 @@ class Shape {
         console.log(`Периметр: ${this.calculatePerimeter().toFixed(2)}`);
     }
 }
+exports.Shape = Shape;
 class Circle extends Shape {
     constructor(radius) {
         super("Коло");
@@ -21,6 +24,7 @@ class Circle extends Shape {
         return 2 * Math.PI * this.radius;
     }
 }
+exports.Circle = Circle;
 class Rectangle extends Shape {
     constructor(width, height) {
         super("Прямокутник");
@@ -34,9 +38,4 @@ class Rectangle extends Shape {
         return 2 * (this.width + this.height);
     }
 }
-// Демонстрація поліморфізму
-const shapes = [
-    new Circle(5),
-    new Rectangle(10, 4)
-];
-shapes.forEach(shape => shape.printInfo());
+exports.Rectangle = Rectangle;

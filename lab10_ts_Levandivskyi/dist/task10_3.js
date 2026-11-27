@@ -8,6 +8,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Book = void 0;
 function ReadOnlyMethod(target, propertyKey, descriptor) {
     descriptor.writable = false;
     return descriptor;
@@ -20,13 +22,10 @@ class Book {
         return `Назва книги: ${this.title}`;
     }
 }
+exports.Book = Book;
 __decorate([
     ReadOnlyMethod,
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", String)
 ], Book.prototype, "getInfo", null);
-const book = new Book("Кобзар");
-console.log(book.getInfo());
-const descriptor = Object.getOwnPropertyDescriptor(Book.prototype, "getInfo");
-console.log("Можна змінювати метод:", descriptor?.writable);
