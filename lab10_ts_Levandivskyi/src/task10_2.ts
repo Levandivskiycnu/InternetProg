@@ -1,5 +1,5 @@
 
-abstract class Shape {
+export abstract class Shape {
     constructor(public name: string) {}
 
     abstract calculateArea(): number;
@@ -12,7 +12,7 @@ abstract class Shape {
     }
 }
 
-class Circle extends Shape {
+export class Circle extends Shape {
     constructor(public radius: number) {
         super("Коло");
     }
@@ -26,7 +26,7 @@ class Circle extends Shape {
     }
 }
 
-class Rectangle extends Shape {
+export class Rectangle extends Shape {
     constructor(public width: number, public height: number) {
         super("Прямокутник");
     }
@@ -39,11 +39,3 @@ class Rectangle extends Shape {
         return 2 * (this.width + this.height);
     }
 }
-
-// Демонстрація поліморфізму
-const shapes: Shape[] = [
-    new Circle(5),
-    new Rectangle(10, 4)
-];
-
-shapes.forEach(shape => shape.printInfo());

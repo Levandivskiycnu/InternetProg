@@ -8,7 +8,7 @@ function ReadOnlyMethod(
     return descriptor;
 }
 
-class Book {
+export class Book {
     title: string;
 
     constructor(title: string) {
@@ -20,14 +20,3 @@ class Book {
         return `Назва книги: ${this.title}`;
     }
 }
-
-const book = new Book("Кобзар");
-
-console.log(book.getInfo());
-
-const descriptor = Object.getOwnPropertyDescriptor(
-    Book.prototype,
-    "getInfo"
-);
-
-console.log("Можна змінювати метод:", descriptor?.writable);

@@ -8,7 +8,7 @@ function Min(minValue: number) {
         const setter = (newValue: number) => {
             if (newValue < minValue) {
                 throw new Error(
-                    `Поле '${propertyKey}' не може бути меншим за ${minValue}. Передано: ${newValue}`
+                    `Помилка валідації! Поле '${propertyKey}' не може бути меншим за ${minValue}.`
                 );
             }
 
@@ -27,12 +27,9 @@ function Min(minValue: number) {
 function Sealed(constructor: Function) {
     Object.seal(constructor);
     Object.seal(constructor.prototype);
-
-    console.log(`[SEALED] Клас ${constructor.name} запечатано.`);
 }
 
-@Sealed
-class UserProfile {
+export class UserProfile {
     public name: string;
 
     @Min(18)
@@ -41,20 +38,7 @@ class UserProfile {
     constructor(name: string, age: number) {
         this.name = name;
         this.age = age;
+
+        Object.seal(this);
     }
-}
-
-try {
-    const user1 = new UserProfile("Марія", 22);
-
-    console.log(
-        `Створено користувача: ${user1.name}, вік: ${user1.age}`
-    );
-
-    console.log("Спроба встановити недопустимий вік...");
-
-    const user2 = new UserProfile("Олег", 15);
-
-} catch (error: any) {
-    console.error("Отримано виключення:", error.message);
 }

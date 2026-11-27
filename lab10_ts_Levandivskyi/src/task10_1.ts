@@ -1,37 +1,30 @@
 
-class BankAccount {
-    private balance: number;
+export class BankAccount {
+    private _balance: number;
     protected owner: string;
     readonly accountNumber: string;
 
-    constructor(owner: string, accountNumber: string, balance: number) {
-        this.owner = owner;
+    constructor(accountNumber: string, owner: string, balance: number) {
         this.accountNumber = accountNumber;
-        this.balance = balance;
+        this.owner = owner;
+        this._balance = balance;
+    }
+
+    get balance(): number {
+        return this._balance;
     }
 
     deposit(amount: number): void {
         if (amount > 0) {
-            this.balance += amount;
+            this._balance += amount;
         }
     }
 
-    withdraw(amount: number): void {
-        if (amount > 0 && amount <= this.balance) {
-            this.balance -= amount;
+    withdraw(amount: number): boolean {
+        if (amount > 0 && amount <= this._balance) {
+            this._balance -= amount;
+            return true;
         }
-    }
-
-    getBalance(): number {
-        return this.balance;
+        return false;
     }
 }
-
-const account = new BankAccount("Олексій", "UA12345", 1000);
-
-account.deposit(500);
-account.withdraw(200);
-
-console.log("Власник:", "Олексій");
-console.log("Номер рахунку:", account.accountNumber);
-console.log("Баланс:", account.getBalance());
